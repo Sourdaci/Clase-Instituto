@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.ArrayList;
 /**
  * Datos basicos de un alumno del centro
  * 
@@ -8,11 +8,11 @@ import java.util.Random;
 public class Alumno
 {
     // instance variables - replace the example below with your own
-    private static final int NUMERO_CLASE = 1;
+    private static int numeroClase = 1;
+    private int numClaseAlumno;
     private String nombre;
     private int edad;
-    private int[] notas;
-    private static final int CANTIDAD_NOTAS_POR_DEFECTO = 7;
+    private ArrayList<Integer> notas;
     private static final int MINIMO_MEDIA = 5;
 
     /**
@@ -22,27 +22,22 @@ public class Alumno
      * @param edad La edad del alumno
      * @param cantidadNotas El numero de asignaturas a evaluar. Si es erroneo se evaluaran 7
      */
-    public Alumno(String nombre, int edad, int cantidadNotas)
+    public Alumno(String nombre, int edad)
     {
         this.nombre = nombre;
         this.edad = edad;
-        if(cantidadNotas < 1){
-            System.out.println("Cantidad de asignaturas incorrecta, aplicando valor por defecto");
-            notas = new int[CANTIDAD_NOTAS_POR_DEFECTO];
-        }else{
-            notas = new int[cantidadNotas];
-        }
-        crearNotas();
+        numClaseAlumno = numeroClase;
+        numeroClase++;
+        notas = new ArrayList<Integer>();
     }
-
+    
     /**
-     * Da valor a las notas de las asignaturas del alumno de forma aleatoria [0-10]
+     * Agrega al alumno una nota de una asignatura
+     * 
+     * @param nota La nota de la asignatura para calcular la media
      */
-    private void crearNotas(){
-        Random aleatorio = new Random();
-        for (int i = 0; i < notas.length; i++){
-            notas[i] = aleatorio.nextInt(11);
-        }
+    public void calificarAlumno(int nota){
+        notas.add(nota);
     }
     
     /**
@@ -52,10 +47,11 @@ public class Alumno
      */
     public float mediaNotas(){
         float media = 0;
-        for (int i = 0; i < notas.length; i++){
-            media += notas[i];
+        int cantidadNotas = notas.size();
+        for (int i = 0; i < cantidadNotas; i++){
+            media += notas.get(i);
         }
-        media = media / notas.length;
+        media = media / cantidadNotas;
         return media;
     }
     
@@ -72,9 +68,10 @@ public class Alumno
     
     public void muestraDatos(){
         System.out.println("Nombre: " + nombre + ", edad: " + edad);
-        System.out.print("Notas: " + notas[0]);
-        for (int i = 1; i < notas.length; i++){
-            System.out.print(", " + notas[i]);
+        System.out.println("Numero de clase: " + numClaseAlumno);
+        System.out.print("Notas:");
+        for (int nota : notas){
+            System.out.print(" " + nota);
         }
         System.out.print("\n");
     }
