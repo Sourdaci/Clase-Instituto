@@ -48,10 +48,12 @@ public class Alumno
     public float mediaNotas(){
         float media = 0;
         int cantidadNotas = notas.size();
-        for (int i = 0; i < cantidadNotas; i++){
-            media += notas.get(i);
+        if (cantidadNotas != 0){
+            for (int i = 0; i < cantidadNotas; i++){
+                media += notas.get(i);
+            }
+            media = media / cantidadNotas;
         }
-        media = media / cantidadNotas;
         return media;
     }
     
@@ -70,8 +72,12 @@ public class Alumno
         System.out.println("Nombre: " + nombre + ", edad: " + edad);
         System.out.println("Numero de clase: " + numClaseAlumno);
         System.out.print("Notas:");
-        for (int nota : notas){
-            System.out.print(" " + nota);
+        if (notas.size() != 0){
+            for (int nota : notas){
+                System.out.print(" " + nota);
+            }
+        }else{
+            System.out.print(" 0");
         }
         System.out.print("\n");
     }
